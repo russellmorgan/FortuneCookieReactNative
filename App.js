@@ -1,36 +1,27 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, Button, Alert, View, Image, ImageBackground, TouchableWithoutFeedback } from "react-native";
+import { Animated, StyleSheet, Text, Alert, View, Image, ImageBackground, TouchableWithoutFeedback } from "react-native";
 
-
-export class Greeting extends Component {
-  render() {
-    return (
-      <Text style={styles.instructions}>Hello World</Text>
-    );
-  }
-}
 
 export default class App extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      cookieOpen: false
+      cookieOpen: 0
     }
-
   }
-  
-  showRandomFortune() {
+
+  showRandomFortune = () => {
+    this.setState({cookieOpen:1})
     const fortunes = [
-      'Your ex has never been happier.',
-      'You will never solve a Rubik’s Cube.',
-      'Love is for the lucky and the brave. Tough break, coward.',
-      'Plan for many pleasures ahead. Oh wait, this wasn’t for you.'
-    ];
-    let fortune = fortunes[Math.floor(Math.random()*fortunes.length)];
+      'Your ex has never been happier',
+      'You will never solve a Rubik’s Cube',
+      'Love is for the lucky and the brave. Tough break, coward',
+      'Plan for many pleasures ahead. Oh wait, this wasn’t for you'
+    ]
+    let fortune = fortunes[Math.floor(Math.random()*fortunes.length)]
     Alert.alert(fortune)
   }
-
 
   render() {
     return (
@@ -38,9 +29,10 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <Image source={require('./img/misfortune-txt.png')} />
           <TouchableWithoutFeedback onPress={this.showRandomFortune}>
-            <Image source={require('./img/cookie.png')} />
+            <Animated.Image source={require('./img/cookie.png')} />
           </TouchableWithoutFeedback>
           <Text style={styles.instructions}>Tap the cookie</Text>
+          <Text>{this.state.cookieOpen}</Text>
         </View>
       </ImageBackground>
     );
